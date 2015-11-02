@@ -1,0 +1,11 @@
+= div_for knote do
+  %p
+    %h2= knote.title
+
+  %p.nav
+    == Similar (#{original.similar_knotes.count})
+    = link_to("« #{knote.easier(original).count} easier", knote_path(knote.easier!(original), :original_id => original.id)) unless knote.easier!(original).nil?
+    = link_to("#{knote.harder(original).count} harder »", knote_path(knote.harder!(original), :original_id => original.id)) unless knote.harder!(original).nil?
+
+  - knote.content.split("\n").each do |p|
+    %p= p

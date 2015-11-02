@@ -1,0 +1,49 @@
+.message
+  %h3== Grading #{@report.title}
+  .clear
+  
+= render "admin/shared/navigation/report"
+
+.grid_3.yellow-bg.no-corners
+  = form_for [:admin, @course, @student, @report] do |f|
+    - if @report.errors.any?
+      #error_explanation
+        %h3= "#{pluralize(@report.errors.count, "error")} prohibited this report from being saved:"
+        %ul
+          - @report.errors.full_messages.each do |msg|
+            %li= msg
+    %h5.page-title= f.label :grade
+    %ul
+      - if @report.submitted_at > @report.knotebook.due_at
+        %li.clock== #{distance_of_time_in_words(@report.submitted_at - @report.knotebook.due_at).capitalize} late
+      %li.comment
+        - if Comment.for_report(@report).count == 0
+          == You haven't left any comments! Are you sure you want to assign a grade?
+        - else
+          == #{Comment.for_report(@report).count} comments
+      %li.check== 89 points / #{@report.answers.count} sections
+    .pads= f.text_field :grade, :class => 'fill'
+    .pads
+      .button= f.submit 'Submit grade'
+      .pads.half.right= link_to "Cancel", :back
+
+.grid_9
+  - @report.answers.each do |answer|
+    .awesome
+      .border
+        .greydient.pads
+          %h4.left== #{answer.question.title}
+          .right.small.points
+            Points: 15
+          .clear
+        - unless answer.comments.blank?
+          %ol.no-pads
+            - answer.comments.each do |comment|
+              %li.border.white
+                &nbsp;
+                .comment-container
+                  .comment-body{ :style => "margin-top:10px"}
+                    %p= comment.body
+                .clear
+        .clear
+                

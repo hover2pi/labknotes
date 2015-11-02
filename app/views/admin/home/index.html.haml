@@ -1,0 +1,57 @@
+- title 'Dashboard'
+
+.message
+  %h3.left== Hi, Professor #{current_user.last}!
+  .clear
+  
+- if current_user.courses.blank?
+  .yellow-bg.no-corners.pads.double
+    %p 
+      Welcome to 
+      %strong Lab Knotes
+      , a course management tool that makes creating, managing and grading lab experiments fast, intuitive and beautiful.
+    %p
+      With this application you will be able to:
+      %ul
+        %li.add-course Manage multiple lab sections or courses,
+        %li.manual Create and manage multimedia lab experiment manuals,
+        %li.add-knote Produce lab report assignments for students to complete and submit for a grade, and
+        %li.check Review, comment on, grade and return student lab reports.
+    %p
+      To get started, click here to
+      %span.red= link_to "add a new course", [:new, :admin, :course]
+      \.
+    %p — The Lab Knotes Team
+    
+- else   
+  .grid_3.yellow-bg.no-corners
+    %h5.page-title= Time.now.strftime("%A, %B %#d")
+    %ul
+      %li.check== #{current_user.reports.needs_grade.count} lab reports to grade
+      %li.clock== #{current_user.reports.overdue.count} overdue lab reports
+      - current_user.knotebooks.due.each do |knotebook|
+        %li.date
+          == Due #{knotebook.due_at.strftime("%A, %B %#d")}
+          .grey.small= knotebook.title
+  
+  .grid_9.table
+    %ul.list
+      %li.thead.greydient.border.no-top-corners.bold
+        .left.bold Experiment
+        / %ul.sub-list.tabs.no-bold.small
+        /   %li.no-top-corners.border= link_to "Upcoming"
+        /   %li.no-top-corners.border= link_to "Collected"
+        /   %li.no-top-corners.border.current= link_to "All"
+        .clear
+      - current_user.courses.each do |course|
+        %li.tsubhead
+          .left.l-pads.double.bold= link_to "#{course.name} #{course.semester}", [:admin, course], :title => "Course details and syllabus"
+          .right.green.bold= link_to "Course gradebook (#{course.reports.needs_grade.count})", [:admin, course, :students], :title => "#{pluralize(course.reports.needs_grade.count, "report")} to grade"
+          .clear
+        = render :partial => 'admin/knotebooks/knotebook', :collection => course.knotebooks.order('due_at DESC'), :locals => { :course => course }
+        %li.tbody{ :class => cycle('odd', 'even')}
+          .new.l-pads.quadruple= link_to '+ Add new experiment', [:new, :admin, course, :knotebook]
+      %li.tfoot.greydient.border.no-bottom-corners
+    .clear
+    %br
+  .clear

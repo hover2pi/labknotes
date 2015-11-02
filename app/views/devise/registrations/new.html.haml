@@ -1,0 +1,44 @@
+- title "Sign Up"
+
+.message
+  %h3.left== Create Your Account
+  .clear
+
+.grid_12.h-pads
+  = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+    = devise_error_messages!
+
+    .v-pads
+      %h5= f.label :first, "First Name"
+      = f.text_field :first, :class => "tip"
+      .tooltip What do you call yourself?
+
+    .v-pads
+      %h5= f.label :last, "Last Name"
+      = f.text_field :last, :class => "tip"
+      .tooltip This one's easy!
+
+    .v-pads
+      %h5= f.label :email
+      = f.text_field :email, :class => "tip"
+      .tooltip For internal purposes only. Don't worry, this will be kept private!
+
+    .v-pads
+      %h5= f.label :student_id, "Student ID"
+      = f.text_field :student_id, :class => "tip"
+      .tooltip This must be your nine digit Stony Brook University student ID.
+
+    .v-pads
+      %h5= f.label :password
+      = f.password_field :password, :class => "tip"
+      .tooltip Choose something strong that you'll remember.
+
+    .v-pads
+      %h5= f.label :password_confirmation
+      = f.password_field :password_confirmation, :class => "tip"
+      .tooltip That password again!
+
+    .v-pads
+      .button= f.submit "Create my account"
+
+    .v-pads= link_to "I already have an account!", new_session_path(resource_name)

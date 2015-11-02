@@ -1,0 +1,15 @@
+.message
+  %h3.left== Listing all Courses
+  %p.right= link_to '« Back to Dashboard', :root
+  .clear
+
+.grid_12.table
+  %ul.list
+    %li.thead
+      %ul.sub-list.left-list
+        %li.w100 Name
+        %li.w100 Semester
+        %li.w100 Short name
+      .clear
+    = render @courses
+    %li.tfoot.no-wrap.red= link_to '+ Add new course', [:new, :admin, :course]

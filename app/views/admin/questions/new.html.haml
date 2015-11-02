@@ -1,0 +1,10 @@
+- title "New question for #{@knotebook.title}"
+
+.message
+  %h3== New question for #{@knotebook.title}
+  .clear
+
+= render "admin/shared/navigation/#{@knotebook.state}"
+= render "sidebar"
+
+= render 'form'

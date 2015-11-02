@@ -1,0 +1,21 @@
+.awesome{ :id => answer.question.id }
+  .border
+    .greydient.pads
+      %h4.left== #{answer.question.title}
+      .right.small.points
+        Points:
+        %input{ :style => "width:3em;margin-left:5px"}
+      .clear
+    .white.pads
+      - if answer.question.spreadsheet?
+        %iframe{ :width => "680", :height=> "300", :class=> "white pads", :src =>  spreadsheet_for(answer), :frameborder => "0"}
+      - else
+        - answer.content.html_safe.split("\n").each do |p|
+          %p= p
+  - unless answer.comments.blank?
+    %ol.no-pads
+      = render :partial => 'admin/answers/comment', :collection => answer.comments, :locals => { :answer => answer }
+  .white.border.pads
+    .right.red= link_to "+ Add a comment", [:new, :admin, @course, @student, @report, answer, :comment]
+    .clear
+  .clear

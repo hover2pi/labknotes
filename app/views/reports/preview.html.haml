@@ -1,0 +1,25 @@
+- title "Report for #{@report.title}"
+
+.message
+  %h3.left= @report.title
+  %p.right= link_to '« Back to Dashboard', :root
+  .clear
+  
+= render :partial => "shared/navigation/report"
+
+.grid_3.yellow-bg.no-corners
+  %h5.page-title Report Index
+  %ol
+    - @report.knotebook.questions.each do |question|
+      %li= link_to question.title, "##{question.id}"
+  %h5.page-title Report Details
+  %ul
+    - if @report.graded?
+      %li.check.big.bold= @report.grade
+      %li.comment== You have #{pluralize(Comment.for_report(@report).count, "comment")}
+    - else
+      %li.check Grade pending
+    - # TODO: Display submitted_at date
+    %li.clock Submitted DD/MM/YY at HH:MM
+
+.grid_9= render @report.answers

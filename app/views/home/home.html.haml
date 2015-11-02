@@ -1,0 +1,106 @@
+- title 'Dashboard'
+
+- if current_user.courses.blank?
+  .message
+    %h3.left== Hi, #{current_user.name}!
+    .clear
+
+  .grid_3.yellow-bg.no-corners.pads
+    .pads
+      First Name:
+      %span.bold.l-pads= current_user.first
+    .pads
+      Last Name:
+      %span.bold.l-pads= current_user.last
+    .pads
+      Email:
+      %span.bold.l-pads= current_user.email
+    .pads
+      Student ID:
+      %span.bold.l-pads= current_user.student_id
+      
+  .grid_9.pads
+    %p
+      Welcome to 
+      %strong Lab Knotes
+      , a course management tool that makes lab reports fast, intuitive and beautiful.
+    %p With this application you will be able to:
+    %ul
+      %li.manual Customize your lab manuals to exactly your level of understanding and preferred format,
+      %li.chart Generate gorgeous equations and interactive graphs from your data to include in your lab reports, 
+      %li.check View grades and comments from your professor and track your course progress, and
+      %li.comment Discuss lab experiments with your entire class for better understanding and better grades.
+    %p 
+      According to our records, you're not enrolled in any courses yet. Click on 
+      %span.bold My Account
+      in the top right of your screen to enroll in your course and get started!
+    %p — The Lab Knotes Team
+      
+- else  
+  .message
+    %h3.left== Hi, #{current_user.name}!
+    .clear
+
+  - current_user.courses.each do |course| 
+    - reports = course.reports.for(current_user)
+    .grid_3.yellow-bg.no-corners
+      %h5.page-title
+        == #{course.name} #{course.semester}
+        //.t-pads.half== Lab Section #{course.id}
+      %ul
+        - if course.knotebooks.due.first
+          %li.date== Next due date: #{course.knotebooks.due.first.due_at.strftime("%A, %B %#d at %l:%M %P")}
+        %li.student== Professor #{course.professor.last}
+        - #TODO: Assign TAs 
+        %li.email= mail_to "Foobar Wang"
+        %li.manual= link_to 'Course syllabus', course
+      - if reports.with_state(:graded).count == 0
+        %h5.page-title GPA
+        .v-pads 
+          %p Sorry, no grades yet!
+      - else
+        %h5.page-title== GPA: #{reports.graded.average(:grade).round(1)}
+        %ul.bar-chart.border.no-corners.h-pads
+          %li.gridlines
+            .y{ :style => "bottom:18px;"}
+            .y{ :style => "bottom:38px;"}
+            .y{ :style => "bottom:58px;"}
+            .y{ :style => "bottom:78px;"}
+          - reports.due_at_asc.each do |report|
+            - width = (196/reports.count)
+            - avg = report.knotebook.reports.graded.average(:grade)
+            %li.bar{ :class => report.state, :style => "width: #{width}px" }
+              %span.hover{ :style => "width: #{width-2}px;" }
+              - if report.graded?
+                %a.tip
+                  %span.count{ :style => "width: #{width-2}px; height: #{report.grade}%" }
+                .tooltip
+                  .arrow
+                  %h5.page-title= report.title
+                  %ul
+                    %li.check
+                      %span Your Score:
+                      %span.bold= report.grade.round
+                    %li.chart
+                      %span Class Avg: 
+                      %span.bold= avg.round
+                    %li.star 
+                      %span Percentile: 
+                      %span.bold= 100*(report.knotebook.reports.graded.count - report.knotebook.reports.graded.where("grade > ?", report.grade).count)/(report.knotebook.reports.graded.count)
+              - else
+                %a{ :title => "Status: #{report.state.capitalize}" }
+                  %span.late{ :style => "width: #{width-2}px; height: 100%" }
+
+    .grid_9.table
+      %ul.list
+        %li.thead.greydient.border.no-top-corners.bold Lab Report
+        - if reports.count == 0
+          %li.tbody
+            %p.yellow-bg.pads.no-corners You have no lab reports, which means your professor hasn't assigned any yet! Rest easy, my friend!
+        - else
+          = render reports.due_at_desc
+        %li.tfoot.greydient.border.no-bottom-corners
+      .clear
+
+    .clear
+    %br

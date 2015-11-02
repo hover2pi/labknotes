@@ -1,0 +1,8 @@
+- title "New Experiment"
+
+.message
+  %h3== New Experiment for #{@course.name} #{@course.semester}
+  .clear
+  
+= render "admin/shared/navigation/#{@knotebook.state}"
+.h-pads= render "form"

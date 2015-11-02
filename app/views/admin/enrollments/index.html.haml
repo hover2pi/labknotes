@@ -1,0 +1,44 @@
+- title "#{@course.name} #{@course.semester} Enrollments"
+
+.message
+  %h3== Enrollments for #{@course.name} #{@course.semester}
+  .clear
+
+.grid_12.table
+  / = form_for [:admin, @course, @enrollment] do |f|
+  /   -if @enrollment.errors.any?
+  /     #error_explanation
+  /       %h3= "#{pluralize(@enrollment.errors.count, "error")} prohibited this answer from being saved:"
+  /       %ul
+  /         - @enrollment.errors.full_messages.each do |msg|
+  /           %li= msg
+  %ul.list
+    %li.thead.no-top-corners.bold.border.greydient
+      .left.w100 Student ID
+      .left.w200 Name
+      .left.w50 TA
+      .left.w400 Course
+      .left.w150 Semester
+      .clear
+    - if @course.students.count == 0
+      %li.tbody
+        %p.yellow-bg.pads.no-corners No students have signed up yet! Tell them to create their accounts and then their names will show up in this list. Then simply check off those you would like to include in this course.
+    - else        
+      - @course.students.each do |student|
+        %li.tbody{ :class => cycle('odd','even')}
+          .left.w100.grey= student.student_id
+          .left.w200= link_to student.name, [:admin, @course, student]
+          - student.courses.each do |course|
+            .enrolled.right
+              .left.w50 
+                %input{ :type => 'checkbox', :class => "tip"}
+                .tooltip.w400== Check this box to make this person a TA for #{course.name}. Then click Save!
+                - # TODO: Make this TA form work!
+              .left.w400== #{course.name} - #{course.short_name}
+              .left.w150= course.semester
+            .clear
+    %li.tfoot.no-bottom-corners.border.greydient
+  .t-pads.double
+    / .button= f.submit 'Save'
+    .button= link_to 'Save'
+    %span.h-pads= link_to "Cancel", :back

@@ -1,0 +1,8 @@
+- title @report.title
+
+.message
+  %h3.left== Report for #{@report.title}
+  %p.right= link_to '« Back to Dashboard', :root
+  .clear
+
+= render 'form'

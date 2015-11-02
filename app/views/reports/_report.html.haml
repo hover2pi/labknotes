@@ -1,0 +1,53 @@
+%li.tbody{ :class => cycle('odd', 'even') }
+  - case report.state
+  - when 'graded' then
+    .left.kb-title
+      = link_to report.title, [report.course, current_user, report]
+      .stats.small
+        .left.h-pads.submitted== Submitted #{report.submitted_at.strftime("%A, %B %#d at %l:%M %P")}
+        .left.h-pads.late 3 days late
+        .left.h-pads.graded== #{pluralize(Comment.for_report(report).count, "comment")}
+        .clear
+    .right.center
+      .w100.bold= report.grade.round
+    .clear
+  
+  - when 'submitted' then
+    .left.kb-title
+      = link_to report.title, [report.course, current_user, report]
+      .stats.small
+        .left.h-pads.submitted== Submitted #{report.submitted_at.strftime("%A, %B %#d at %l:%M %P")}
+        .clear
+    .right.center
+      .w100.grey.small Grade pending
+  
+  - when 'late' then
+    .left.kb-title
+      = link_to report.title, [report.course, current_user, report]
+      .stats.small
+        .left.h-pads.submitted== Submitted #{report.submitted_at.strftime("%A, %B %#d at %l:%M %P")}
+        .left.h-pads.late== #{distance_of_time_in_words(report.submitted_at - report.knotebook.due_at).capitalize} late
+        .clear
+    .right.center
+      .w100.grey.small Grade pending
+  
+  - when 'draft' then
+    - if report.is_due?
+      .left.kb-title
+        = link_to report.title, [report.course, current_user, report]
+        .stats.small
+          .left.h-pads.submitted== Due #{report.knotebook.due_at.strftime("%A, %B %#d at %l:%M %P")}
+          .clear
+      .right.center
+        .w100.red.small= due_message(report)
+    - else
+      .left.kb-title
+        = link_to report.title, [report.course, current_user, report]
+        .stats.small
+          .left.h-pads.submitted== Due #{report.knotebook.due_at.strftime("%A, %B %#d at %l:%M %P")}
+          .clear
+      .right.center
+        .w100.green.small= due_message(report)
+      
+    .clear
+  .clear

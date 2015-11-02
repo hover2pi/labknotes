@@ -1,0 +1,10 @@
+- title "Editing #{@knotebook.title}"
+
+.message
+  %h3= @knotebook.title
+  .clear
+
+= render "admin/shared/navigation/#{@knotebook.state}"
+= render "sidebar"
+
+= render 'form'

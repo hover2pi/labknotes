@@ -1,0 +1,22 @@
+= render :partial => "navigation"
+
+.grid_3.yellow-bg.no-corners
+  %h5.page-title Report Details
+  %ul
+    %li.knotebook= @report.knotebook.title
+    %li.clock= @report.state
+    %li.date Due in 3 days
+    %li.comment= link_to "12 lab comments"
+  %br
+  .button= link_to "Submit this lab report"
+
+.grid_9.v-pads
+  = form_for [@course, @student, @report] do |f|
+    -if @report.errors.any?
+      #error_explanation
+        %h3= "#{pluralize(@report.errors.count, "error")} prohibited this report from being saved:"
+        %ul
+          - @report.errors.full_messages.each do |msg|
+            %li= msg
+    %p here be the answers to edit
+    .button= f.submit 'Save'

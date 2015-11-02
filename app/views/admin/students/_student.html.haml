@@ -1,0 +1,15 @@
+%li.tbody{ :class => cycle('odd', 'even')}
+  .left= link_to student.name, [:admin, @course, student]
+  %ul.sub-list.t-pads
+    - @course.knotebooks.each do |knotebook|
+      - report = knotebook.reports.for(student).first
+      - case report.try(:state)
+      - when 'graded' then
+        %li.w30= link_to report.grade.round, [:admin, @course, student, report]
+      - when 'submitted' then
+        %li.w30.green= link_to "Grade", [:admin, @course, student, report]
+      - when 'late' then
+        %li.w30.red= link_to "Late", [:admin, @course, student, report]
+      - else
+        %li.w30 -
+  .clear

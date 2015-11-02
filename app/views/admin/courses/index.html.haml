@@ -1,0 +1,16 @@
+- title "Courses"
+
+.message
+  %h3== Listing all Courses
+  .clear
+
+.grid_12.table
+  %ul.list
+    %li.thead.greydient.border.no-top-corners.bold Course
+    - if current_user.courses.blank?
+      %li.tbody
+        %p.yellow-bg.pads.no-corners You do not have any courses yet! Click the link below to get started.
+    - else
+      = render @courses
+    %li.tfoot.greydient.border.no-bottom-corners.no-wrap.red= link_to '+ Add new course', [:new, :admin, :course]
+

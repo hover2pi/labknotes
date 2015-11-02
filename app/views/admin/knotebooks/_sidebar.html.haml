@@ -1,0 +1,6 @@
+.grid_3.yellow-bg.no-corners
+  %h5.page-title Experiment Summary
+  %ul
+    %li.manual= pluralize(@knotebook.knotes.count, "lab manual section")
+    %li.knotebook= pluralize(@knotebook.questions.count, "report question")
+    

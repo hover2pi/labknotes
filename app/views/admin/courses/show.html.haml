@@ -1,0 +1,34 @@
+- title 'Syllabus'
+
+.message
+  %h3== #{@course.name}, #{@course.semester} - #{@course.short_name}
+  .clear
+
+.grid_3.yellow-bg.no-corners
+  %h5.page-title Links
+  %ul
+    %li.check.green= link_to 'Course Gradebook', [:admin, @course, :students]
+    %li.edit.red= link_to 'Edit course details', [:edit, :admin, @course]
+  %h5.page-title.pads TAs for this Course (3)
+  %ol
+    %li= link_to "Foobar Wang"
+    %li= link_to "Cabbage Lee"
+    %li= link_to "MeowMix Chang"
+    %li.student.red= link_to "Manage TA positions", [:admin, @course, :enrollments]
+  %h5.page-title.pads== Students Enrolled in this Course (#{@course.students.count})
+  %ol
+    - @course.students.each do |student|
+      %li= link_to student.name, [:admin, @course, student]
+    %li.student.red= link_to "Manage student enrollments", [:admin, @course, :enrollments]
+.grid_9.v-pads
+  %h5.page-title.pads Syllabus  
+  .v-pads
+    - @course.syllabus.split("\n").each do |p|
+      %p= p
+  .clear
+  %h5.page-title== Experiments (#{@course.knotebooks.count})
+  %ol
+    - @course.knotebooks.each do |knotebook|
+      %li= knotebook.published? ? (link_to knotebook.title, [:admin, @course, knotebook]) : (link_to "UNPUBLISHED — " + knotebook.title, [:admin, @course, knotebook])
+    %li.knotebook.red= link_to "Manage experiments", [:admin, @course, :knotebooks]
+        

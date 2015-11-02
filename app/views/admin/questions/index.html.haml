@@ -1,0 +1,20 @@
+- title "Questions for #{@knotebook.title}"
+
+.message
+  %h3.left= @knotebook.title
+  %p.right= link_to '« Back to Dashboard', [:admin, :root]
+  .clear
+
+= render "admin/shared/navigation/#{@knotebook.state}"
+= render "sidebar"
+
+- if @knotebook.questions.count == 0
+  .grid_9.v-pads
+    %p
+      In the 
+      %strong Report Outline
+      you can add/manage the sections or questions you would like your students to complete as part of this lab report.
+    %p For example, a typical lab report might have a section called "Introduction" where the students are asked to describe their goals in this lab or a section called "Procedure" where the students are asked to describe step by step how they performed the experiment.
+    %p Click the button to the left to start adding questions to this report outline. Finally, don't for get to set a due date for this lab report!
+- else
+  .grid_9= render @questions

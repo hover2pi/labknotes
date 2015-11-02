@@ -1,0 +1,33 @@
+.grid_3.yellow-bg.no-corners
+  %h5.page-title All Courses
+  %ul
+    - current_user.courses.each do |course|
+      %li.knotebook= link_to "#{course.name} #{course.semester}", [:admin, course]
+    %li.add-course.red= link_to 'Add/Delete courses', [:admin, :courses]
+
+.grid_9
+  = form_for [:admin, @course] do |f|
+    - if @course.errors.any?
+      #error_explanation
+        %h3= "#{pluralize(@course.errors.count, "error")} prohibited this course from being saved:"
+        %ul
+          - @course.errors.full_messages.each do |msg|
+            %li= msg
+    .v-pads
+      %h5= f.label :name, "Course ID"
+      = f.text_field :name
+      .grey.small.pads.half E.g. — Physics 451 Section 1, PHY715 Section 04, etc.
+    .v-pads
+      %h5= f.label :semester
+      = f.text_field :semester
+      .grey.small.pads.half E.g. — Fall 2011
+    .v-pads
+      %h5= f.label :short_name, "Course Title"
+      = f.text_field :short_name
+      .grey.small.pads.half E.g. — Senior Lab, Electromagnetic Theory, etc.
+    .v-pads
+      %h5= f.label :syllabus
+      = f.text_area :syllabus, :class => "h300"
+      .grey.small.pads.half Here is where you can put the course syllabus including course objectives, materials covered and office hours.
+    .v-pads
+      .button= f.submit 'Save'

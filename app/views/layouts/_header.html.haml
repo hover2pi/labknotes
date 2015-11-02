@@ -1,0 +1,35 @@
+#header
+  #header-content
+    %ul.nav-items
+      %li#logo
+        - if user_signed_in? && current_user.professor?
+          = link_to image_tag('logo.png'), [:admin, :root]
+        - else
+          = link_to image_tag('logo.png'), :root
+      - if user_signed_in? && current_user.professor?
+        %li
+          = link_to "Courses"
+          %ul.dropdown.shadow
+            - current_user.courses.each do |course|
+              %li{ :class => cycle('odd', 'even')}= link_to course.name, [:admin, course]
+            %li= link_to "Add/Delete Courses", [:admin, :courses]
+        %li
+          = link_to "Grading"
+          %ul.dropdown.shadow
+            - current_user.courses.each do |course|
+              %li{ :class => cycle('odd', 'even')}= link_to "#{course.name} Gradebook", [:admin, course, :students]
+        %li
+          = link_to "Experiments"
+          %ul.dropdown.shadow
+            - if current_user.knotebooks.count == 0
+              %li
+                %p.pads.w150.yellow-bg You don't have any experiments yet!
+            - else
+              - current_user.knotebooks.order('due_at DESC').each do |knotebook|
+                %li{ :class => cycle('odd', 'even')}= link_to knotebook.title, [:admin, knotebook.course, knotebook]
+    - unless user_signed_in?
+      .login.button.v-pads.half.right= link_to 'Click here to Sign In', new_user_session_path
+    .notices.right.pads.bold
+      .notice.green= notice
+      .alert.red= alert
+    .clear

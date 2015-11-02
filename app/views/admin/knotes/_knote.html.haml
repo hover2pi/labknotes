@@ -1,0 +1,13 @@
+.knote
+  .knote-header
+    .knote-title.blue.bold= knote.title
+    .knote-nav.greydient
+      .left.small= link_to "Collapse", "javascript:void(0)", :class => "collapse", :onClick => "this.innerHTML = (this.innerHTML == 'Collapse' ? 'Expand' : 'Collapse');", :title => "Collapse/expand content"
+      .right.red.small
+        = link_to "+ Add an alternate description", new_admin_course_knotebook_knote_path(@course, @knotebook, :original_id => knote.id), :class => "tip-left"
+      .tooltip-left.w400
+        Add more detailed text, an instructional video or any kind of alternate description for students to customize their lab manual.
+      .clear
+  .knote-content
+    - knote.html_content.split("\n").each do |p|
+      %p= p

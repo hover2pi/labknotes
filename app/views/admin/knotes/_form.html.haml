@@ -1,0 +1,28 @@
+.grid_9.h-pads
+  = form_for [:admin, @course, @knotebook, @knote] do |f|
+    = hidden_field_tag :original_id, @original.id if @original
+    -if @knote.errors.any?
+      #error_explanation
+        %h3= "#{pluralize(@knote.errors.count, "error")} prohibited this knote from being saved:"
+        %ul
+          - @knote.errors.full_messages.each do |msg|
+            %li= msg
+
+    .v-pads
+      %h5= f.label :title
+      = f.text_field :title
+      .grey.small.pads.half E.g. — "Objectives of this lab," "A history of magnetostatics," "How to turn on the apparatus," etc.
+    
+    .v-pads.tips
+      %h5= f.label :content
+      = f.text_area :content, :class => "h300"
+      .grey.small.pads.half This is where the meat of the lab manual content goes. Keep in mind that you can add as many sections to the manual as you'd like. In our experience, the more granular the content, the better!
+    
+    .v-pads= render 'shared/formatting'
+
+    .v-pads
+      .button= f.submit 'Save'
+      %span.h-pads= link_to "Cancel", :back
+      - unless @knote.new_record?
+        \|
+        %span.red.h-pads= link_to "Delete", [:admin, @course, @knotebook, @knote], :title => "Delete this section", :confirm => 'Are you sure?', :method => :delete

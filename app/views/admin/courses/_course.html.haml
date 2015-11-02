@@ -1,0 +1,13 @@
+%li.tbody{ :class => cycle('odd', 'even') }
+  .left.rp-title
+    == #{course.name} #{course.semester} (#{course.short_name})
+    .stats
+      .left.h-pads.submitted== #{course.knotebooks.count} experiments
+      .left.h-pads.stat== #{course.students.count} students
+  %ul.sub-list
+    %li=link_to 'Show', [:admin, course]
+    - if course.professor == current_user
+      %li= link_to 'Edit', [:edit, :admin, course]
+      %li.red= link_to 'Destroy', [:admin, course], :confirm => 'Are you sure?', :method => :delete
+      - # TODO: Make this delete work!
+  .clear

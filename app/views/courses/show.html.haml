@@ -1,0 +1,21 @@
+- title "Syllabus"
+
+.message
+  %h3.left== #{@course.short_name} #{@course.semester} - #{@course.name}
+  %p.right= link_to '« Back to Dashboard', :root
+  .clear
+
+.grid_3.yellow-bg.pads.no-corners
+  %h5.page-title== TA for this course
+  %ul
+    %li.student Foobar Wang
+  %h5.page-title== Experiments (#{@course.knotebooks.with_state(:published).count})
+  %ol
+    - @course.knotebooks.with_state(:published).each do |knotebook|
+      %li= link_to knotebook.title, [@course, knotebook]
+
+.grid_9.v-pads
+  %h5.page-title.pads Syllabus
+  .t-pads
+    - @course.syllabus.split("\n").each do |p|
+      %p= p

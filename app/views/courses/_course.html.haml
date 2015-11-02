@@ -1,0 +1,11 @@
+%li.tbody{ :class => cycle('odd', 'even') }
+  %ul.sub-list.left-list
+    %li.w100= course.name
+    %li.w100= course.semester
+    %li.w100= course.short_name
+  %ul.sub-list
+    %li=link_to 'Show', [:admin, course]
+    - if course.professor == current_user
+      %li= link_to 'Edit', [:edit, :admin, course]
+      %li.red= link_to 'Destroy', [:admin, course], :confirm => 'Are you sure?', :method => :delete
+  .clear

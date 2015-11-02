@@ -1,0 +1,12 @@
+.kb-nav.border.greydient.no-corners
+  %ul
+    %li.left.no-left-corners= no_current_link "Experiment Details", [:edit, :admin, @course, @report.knotebook]
+    %li.left= no_current_link "Edit Lab Manual (#{@report.knotebook.knotes.count})", [:admin, @course, @report.knotebook, :knotes]
+    %li.left= no_current_link "Edit Report Outline (#{@report.knotebook.questions.count})", [:admin, @course, @report.knotebook, :questions]
+    - if @report.knotebook.reports.needs_grade.count == 0
+      %li.no-right-corners.right.green= no_current_link "Grade Reports", [:admin, @course, @report.knotebook, :reports]
+    - else
+      %li.no-right-corners.right.green= no_current_link "Grade Reports (#{@report.knotebook.reports.needs_grade.count})", [:admin, @course, @report.knotebook, :reports]
+    %li.right= no_current_link "View Lab Manual", [:admin, @course, @report.knotebook]
+  .clear
+  

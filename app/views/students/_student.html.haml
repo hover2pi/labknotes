@@ -1,0 +1,4 @@
+%tr
+  %td= link_to student.name, [@course, student]
+  - @course.knotebooks.each do |knotebook|
+    %td.center= link_to(student.report_for(knotebook).grade) unless student.report_for(knotebook).blank?

@@ -1,0 +1,11 @@
+%li.border.greydient
+  &nbsp;
+  .comment-container.admin
+    .comment-header
+      %span.grey== #{comment.updated_at.strftime("%A, %B %#d at %l:%M %P")} | #{link_to "Delete", [:admin, @course, @student, @report, answer, comment], :class => "red", :title => "Delete this comment", :confirm => 'Are you sure?', :method => :delete} | #{link_to "Edit this comment", [:edit, :admin, @course, @student, @report, answer, comment], :class => "blue", :title => "Edit this comment"}
+    .clear
+    .comment-body
+      - comment.html_content.split("\n").each do |p|
+        %p= p
+    .clear
+  .clear

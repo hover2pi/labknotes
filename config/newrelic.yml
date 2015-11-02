@@ -1,0 +1,25 @@
+commmon: &common
+  error_collector:
+    capture_source: true
+    enabled: true
+    ignore_errors: ActionController::RoutingError
+  apdex_t: 0.5
+  ssl: false
+  monitor_mode: true
+  license_key: fddb07227a4fc15cb8221285c8c01e9e434cf942
+  developer_mode: false
+  app_name: labknotes
+  transaction_tracer:
+    record_sql: raw
+    enabled: true
+    stack_trace_threshold: 0.5
+    transaction_threshold: apdex_f
+  capture_params: false
+  log_level: info
+
+production:
+  <<: *common
+
+development:
+  <<: *common
+  developer_mode: true

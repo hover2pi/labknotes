@@ -1,0 +1,462 @@
+@import constants.sass  
+
+.kb-nav
+  margin-bottom: 2*$padding
+  ul
+    padding: 0
+    margin: 0
+    list-style: none
+    color: $grey_dark
+    li
+      padding: 0
+      &.left
+        margin: -1px 0 -1px -1px
+      &.right
+        margin: -1px -1px -1px 0
+      &.no-link
+        border: $thin
+        padding: $padding 2*$padding
+      a, input[type=submit]
+        border: $thin
+        padding: $padding 2*$padding
+        display: inline-block
+        &.no-link
+          pointer-events: none
+          cursor: default
+          color: $grey_dark
+        &:hover
+          background: -moz-linear-gradient(center top , $highlight, $grey_light) repeat scroll 0 0 $highlight
+          background: -webkit-gradient(linear, left top, left bottom, from($highlight), to($grey_light))
+          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$highlight', endColorstr='$grey_light')
+          text-decoration: none
+          border: $thin
+      input[type=submit]
+        font-size: 13px
+        color: $green_text
+        background: -moz-linear-gradient(center top , $lightest, $highlight) repeat scroll 0 0 $lightest
+        background: -webkit-gradient(linear, left top, left bottom, from($lightest), to($highlight))
+        margin: 0 -1px -1px 0
+        line-height: 18px
+        padding: 9px 16px 10px 16px
+        &:hover
+          background: -moz-linear-gradient(center top , $highlight, $grey_light) repeat scroll 0 0 $highlight
+          background: -webkit-gradient(linear, left top, left bottom, from($highlight), to($grey_light))
+          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$highlight', endColorstr='$grey_light')
+          text-decoration: none
+          border: $thin
+  
+#home
+  iframe
+    width: 50%
+    height: 220px
+  ul
+    margin-left: 2*$padding
+
+.ack
+  width: 130px
+  img
+    max-width: 100%
+    
+.page-title
+  border-bottom: 1px dashed $black
+  margin: 0
+  padding: $half_padding $padding $padding $padding
+
+.message
+  padding-bottom: $padding
+  min-height: 46px
+  p
+    padding: $padding $padding 0 $padding 
+  .left  
+    max-width: 770px
+  form
+    float: left
+    padding: $padding
+
+span.over
+  color: $red_dark
+  font-weight: bold
+
+.report-title
+  border-bottom: $dark
+  margin-bottom: $padding
+  .title
+    font-weight: bold
+    width: 68%
+  .report-nav
+    position: relative
+    bottom: 0
+    right: 0
+    .tab
+      border: 1px solid $grey_mid
+      height: 35px
+      margin-right: $padding
+      margin-bottom: -1px
+      background: $grey_light
+      &.active
+        border-bottom: 1px solid #ffffff $important
+        background: #ffffff
+      a
+        padding: 7px 15px 6px 15px
+        display: inline-block
+        img
+          padding-right: $half_padding
+          vertical-align: middle
+
+.knote
+  margin-bottom: $padding*2
+  .knote-header
+    margin-bottom: $padding
+    .knote-title
+      border: $dark
+      padding: $half_padding $padding
+      font-size: $h4
+    .knote-nav
+      color: $grey_dark
+      border: $dark
+      border-top: 0
+      position: relative
+      a
+        line-height: 25px
+        padding: 6px $padding
+      .swap-right
+        padding: 5px $padding 4px $padding
+        border-left: $dark
+        &:hover
+          background: -moz-linear-gradient(center top , $highlight, $grey_light) repeat scroll 0 0 $highlight
+          background: -webkit-gradient(linear, left top, left bottom, from($highlight), to($grey_light))
+          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$highlight', endColorstr='$grey_light')
+          .arrow
+            border-left-color: $black
+        .arrow
+          border-top: 8px solid transparent
+          border-bottom: 8px solid transparent
+          border-left: 8px solid $red_dark
+      .swap-left
+        padding: 5px $padding 4px $padding
+        border-right: $dark
+        border-left: $dark
+        &:hover
+          background: -moz-linear-gradient(center top , $highlight, $grey_light) repeat scroll 0 0 $highlight
+          background: -webkit-gradient(linear, left top, left bottom, from($highlight), to($grey_light))
+          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$highlight', endColorstr='$grey_light')
+          .arrow
+            border-right-color: $black
+        .arrow
+          border-top: 8px solid transparent
+          border-bottom: 8px solid transparent
+          border-right: 8px solid $red_dark
+        &.inactive
+          display: none
+  .knote-content 
+    position: relative
+    p
+      line-height: 25px
+
+.histogram
+  background: $lightest
+  position: relative
+  color: $grey_mid
+  #score-count
+    width: 25px
+    padding-top: 11px
+    .small
+      padding: 2px 0
+  .x .small
+    margin: 0 0 0 -8px
+    background: #fefefe
+    height: 17px
+    padding-top: 3px
+    width: 20px
+    
+.x
+  position: absolute
+  height: 100px
+  width: 0
+  border-right: 1px dashed #dddddd
+  
+.y
+  position: absolute
+  height: 0
+  width: 909px
+  border-top: 1px solid #dddddd
+  left: 25px
+
+ul.distribution
+  list-style: none
+  height: 100px
+  margin: 0 auto
+  width: 909px
+  position: relative
+  .bar
+    width: 8px
+    margin-right: 1px
+    position: absolute
+    height: inherit
+    a
+      height: inherit  
+      display: block
+      z-index: 1
+      .count
+        position: absolute 
+        bottom: 0
+        background: $blue_dark
+        width: 8px
+      &:hover .count
+        background: $green_text
+    &:hover a
+      text-decoration: none
+      background: $highlight
+
+.no-grades
+  color: $grey_mid
+  position: absolute
+  width: 909px
+  top: 43px
+
+ul.bar-chart
+  background: $lightest
+  height: 100px
+  width: 196px
+  list-style: none
+  margin: $padding auto $padding*2 auto
+  position: relative
+  li.gridlines
+    position: absolute
+    width: 212px
+    height: 100px
+    top: 0
+    margin-left: -8px
+    overflow: hidden
+    .y
+      left: 0
+  li.bar
+    height: inherit
+    position: relative
+    float: left
+    a
+      height: inherit 
+      display: block
+      cursor: default
+      background: transparent
+      .count  
+        background: $blue_dark
+    .hover
+      visibility: hidden
+      height: inherit
+      display: block
+      background: $grey_light
+      opacity: 0.6
+    a .count, .hover
+      display: block 
+      position: absolute 
+      bottom: 0   
+      left: 1px
+      overflow: hidden
+    &:hover 
+      .hover
+        visibility: visible
+      a
+        text-decoration: none
+        .count
+          background: $green_text
+    .tooltip
+      ul
+        padding: $padding*2 $padding 0 $padding*4
+        li span
+          max-width: 130px
+          overflow: hidden
+          white-space: nowrap
+          &.bold
+            float: right
+      .arrow
+        margin-top: 68px
+
+.letter-grades
+  height: 30px
+  color: $grey_mid
+  .info
+    margin: $padding*2 0 0 $padding*3
+  .slider
+    width: 909px
+    margin-left: 25px
+    position: absolute
+    .ui-corner-all
+      -moz-border-radius: 18px
+      -webkit-border-radius: 18px
+      border-radius: 18px
+    .ui-state-default
+      background: $highlight
+      border: $dark
+      &.ui-state-hover, &.ui-state-active
+        border-color: $grey_dark
+        background: $grey_light
+    span.grade-break, span.line
+      position: absolute
+      font-size: 12px
+      color: $grey_mid
+    span.grade-break
+      width: 50px
+      left: -16px
+      top: -15px
+    span.line
+      width: 0
+      height: 100px
+      top: -115px
+      left: 9px
+      border-right: 1px dashed #cccccc
+    a:hover 
+      color: $grey_dark
+      text-decoration: none
+    
+.table
+  ul.list
+    padding: 0
+    margin: 0
+    list-style: none
+    >li 
+      margin: 0
+      &.thead
+        padding: $padding $padding $half_padding 2*$padding
+      &.tsubhead
+        background: $yellow_light
+        font-weight: bold
+        &:hover
+          .peek-a-boo
+          visibility: visible
+      &.tbody, &.tsubhead
+        padding: $padding $padding $padding 2*$padding
+        .kb-title
+          width: 575px
+          &.quadruple
+            width: 518px
+        .rp-title
+          width: 626px
+        .peek-a-boo
+          visibility: hidden
+          display: inline
+          a
+            margin: 0 $half_padding
+        .new a
+          color: $grey_dark
+        .stats
+          margin-top: $half_padding
+          >div
+            color: $grey_dark
+          .submitted
+            padding-left: 0
+          .late, .graded, .stat
+            border-left: $dark
+          a
+            color: $blue_dark
+            &:hover
+              color: $black
+      &.tbody:hover
+        background: $highlight
+        .peek-a-boo
+          visibility: visible
+        .new a
+          color: $red_dark
+        .stats
+          .submitted, .stat
+            color: $grey_darker
+          .late
+            color: $red_dark
+          .graded
+            color: $green_text
+      &.tsubhead, &.tbody, &.tfoot
+        border-left: $thin
+        border-right: $thin
+        border-bottom: $thin
+      &.tfoot
+        padding: $padding $padding $half_padding 2*$padding
+        margin-top: -1px
+      ul.sub-list
+        list-style: none
+        float: right
+        padding: 0
+        margin: 0
+        >li
+          float: left
+          white-space: nowrap
+          text-align: center
+          padding: 0 $padding
+          margin: 0
+        &.tabs >li
+          padding: 0
+          margin: -$padding 0 0 5px
+          background: $lightest
+          position: relative
+          bottom: -9px
+          &:hover
+            border-top: $dark
+            border-left: $dark
+            border-right: $dark
+            bottom: -5px
+          a
+            font-size: $h6
+            padding: $half_padding $padding*2 0
+            text-decoration: none
+            display: block
+            &:hover
+              padding: $half_padding $padding*2
+          &.current
+            bottom: -5px
+            &:hover
+              border: $thin
+            a
+              padding: $half_padding $padding*2
+              pointer-event: none
+              cursor: default
+              color: $grey_mid
+        &.left-list
+          float: left
+          >li
+            padding: 0
+            text-align: left
+ 
+.awesome h4, .knote h4
+  max-width: 600px
+  img
+    margin-left: 5px
+    vertical-align: middle
+            
+.awesome
+  background: $highlight
+  padding: 3px
+  -moz-border-radius: 3px
+  margin-bottom: $padding*2
+  .border > .white
+    padding-top: $padding*2
+  ol
+    font-size: $h1
+    margin: 0
+    list-style-position: inside
+    .points
+      padding-top: $padding
+      width: 50px
+    li
+      padding: 0 $padding*2 $padding
+      margin: -1px 0 0 0
+      color: $grey_light
+      .comment-container
+        margin: -50px 0 0 40px
+        &.admin
+          margin-top: -55px
+        .comment-header
+          font-size: 13px
+          height: 45px
+          span a
+            &.red
+              color: $red_dark
+            &.blue
+              color: $blue_dark
+        .comment-body p
+          font-size: 14px
+          color: $black
+          padding-left: 0
+          padding-right: 0
+  
+.enrolled
+  width: 609px
+  

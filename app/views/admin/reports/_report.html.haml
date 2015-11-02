@@ -1,0 +1,47 @@
+%li.tbody{ :class => cycle('odd', 'even') }
+  - case report.state
+  - when 'graded' then
+    .left
+      = link_to report.title, [:admin, @course, @student, report]
+      .stats.small
+        .left.h-pads.submitted== Submitted #{report.submitted_at.strftime("%A, %B %#d at %l:%M %P")}
+        - if report.submitted_at > report.knotebook.due_at
+          .left.h-pads.late== #{distance_of_time_in_words(report.submitted_at - report.knotebook.due_at).capitalize} late
+        .left.h-pads.graded== #{pluralize(Comment.for_report(report).count, "comment")}
+        .clear
+    .right.center
+      .w50.bold= link_to report.grade.round, [:admin, @course, @student, report]
+    .clear
+  - when 'submitted' then
+    .left
+      = link_to report.title, [:admin, @course, @student, report]
+      .stats.small
+        .left.h-pads.submitted== Submitted #{report.submitted_at.strftime("%A, %B %#d at %l:%M %P")}
+        .clear
+    .right.center
+      .w50.green= link_to "Grade", [:admin, @course, @student, report]
+    .clear
+  - when 'late' then
+    .left
+      = link_to report.title, [:admin, @course, @student, report]
+      .stats.small
+        .left.h-pads.submitted== Submitted #{report.submitted_at.strftime("%A, %B %#d at %l:%M %P")}
+        .left.h-pads.late== #{distance_of_time_in_words(report.submitted_at - report.knotebook.due_at).capitalize} late
+        .clear
+    .right.center
+      .w50.green= link_to "Grade", [:admin, @course, @student, report]
+    .clear
+  - when 'draft' then
+    .left
+      = report.title
+      .stats.small
+        - if report.is_due?
+          .left.h-pads.submitted Not yet submitted
+          .left.h-pads.late== #{distance_of_time_in_words(Time.now - report.knotebook.due_at).capitalize} overdue
+        - else
+          .left.h-pads.submitted== Due #{report.knotebook.due_at.strftime("%A, %B %#d at %l:%M %P")}
+        .clear
+    .right.center
+      .w50 -
+    .clear
+

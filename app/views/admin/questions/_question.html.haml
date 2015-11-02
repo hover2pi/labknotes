@@ -1,0 +1,10 @@
+.awesome
+  .border.greydient.bold
+    %h4.pads.left
+      = question.title
+      - if question.spreadsheet?
+        = image_tag("/images/data.png")
+    .clear
+  .border.white.pads
+    - question.content.split("\n").each do |p|
+      %p= p

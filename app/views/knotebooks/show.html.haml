@@ -1,0 +1,24 @@
+- title @knotebook.title
+  
+.message
+  %h3.left= @knotebook.title
+  %p.right= link_to '« Back to Dashboard', :root
+  .clear
+  
+= render :partial => "shared/manualnav"
+  
+.grid_3.yellow-bg.no-corners
+  %h5.page-title Index
+  .pads= @knotebook.abstract
+  %ol
+    - @knotebook.knotes.each do |knote|
+      %li{ :id => "knote_reference_#{knote.to_param}" }= link_to knote.title, :anchor => knote.to_param
+
+.grid_9.wrapper
+  - @knotebook.knotes.grouped.each_with_index do |knote_group, index|
+    .knotes{ :"data-position" => index, :"data-original" => knote_group.first.id }
+      - knote_group.each_with_index do |knote, pos|
+        - next_knote = knote_group[pos + 1] || knote_group.first
+        = render :partial => 'knotebooks/knote', :object => knote, :locals => { :index => index, :next_knote => next_knote }
+
+.clear

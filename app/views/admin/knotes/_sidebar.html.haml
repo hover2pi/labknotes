@@ -1,0 +1,8 @@
+.grid_3.yellow-bg.no-corners
+  %h5.page-title Lab Manual Index
+  %ol
+    - @knotebook.knotes.grouped.map(&:first).each do |knote|
+      - unless knote.new_record?
+        %li= link_to "Edit " + knote.title, [:edit, :admin, @course, @knotebook, knote]
+  .button= link_to "Click to add a section", [:new, :admin, @course, @knotebook, :knote]
+  

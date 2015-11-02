@@ -1,0 +1,75 @@
+- title "Report for #{@report.title}"
+
+.message
+  %h3.left= @report.title
+  %p.right= link_to '« Back to Dashboard', :root
+  .clear
+  
+= render :partial => "shared/reportnav"
+
+- if @report.draft?
+  .grid_3.yellow-bg.no-corners
+    %h5.page-title Report Index
+    %ol
+      - @report.knotebook.questions.order(:id).each do |question|
+        %li
+          = link_to question.title, "##{question.id}"
+          - if question.spreadsheet?
+            = image_tag("/images/data.png")
+    %h5.page-title Report Details
+    %ul
+      %li.date== Due #{@report.knotebook.due_at.strftime("%A, %B %#d at %l:%M %P")}
+      - if @report.is_due?
+        %li.clock= due_message(@report)
+
+  .grid_9
+    -if @report.errors.any?
+      #error_explanation
+        %h3= "#{pluralize(@report.errors.count, "error")} prohibited this answer from being saved:"
+        %ul
+          - @report.errors.full_messages.each do |msg|
+            %li= msg
+    = form_for [@course, current_user, @report] do |report_form|
+      = report_form.fields_for :answers do |answer_form|
+        .awesome{ :id => answer_form.object.question.id }
+          .border
+            .greydient.pads
+              %h4= answer_form.object.question.title
+            .white.pads
+              - answer_form.object.question.explanation.split("\n").each do |p|
+                %p= p
+              - if answer_form.object.question.spreadsheet?
+                .pads
+                  = answer_form.text_field :content, :class => "fill"
+                  .grey.small.pads.half Paste only the URL to your Google spreadsheet in the field above
+              - else
+                .pads= answer_form.text_area :content, :class => "h200"
+                .pads= render 'shared/formatting'
+          .pads.border
+            / = answer_form.check_box :spreadsheet, :class => "tip"
+            / .tooltip.w400 Paste only the URL to your spreadsheet in the textarea above!
+            / = answer_form.label :spreadsheet, "This is a Google Docs spreadsheet"
+            .button.right= report_form.submit
+            .clear
+
+- else
+  .grid_3.yellow-bg.no-corners
+    %h5.page-title Report Index
+    %ol
+      - @report.knotebook.questions.each do |question|
+        %li
+          = link_to question.title, "##{question.id}"
+          - if question.spreadsheet?
+            = image_tag("/images/data.png")
+    %h5.page-title Report Details
+    %ul
+      %li.date== Submitted #{@report.submitted_at.strftime("%A, %B %#d at %l:%M %P")}
+      - if @report.submitted_at > @report.knotebook.due_at
+        %li.clock== #{distance_of_time_in_words(@report.submitted_at - @report.knotebook.due_at).capitalize} late
+      - if @report.graded?
+        %li.comment= pluralize(Comment.for_report(@report).count, "comment")
+        %li.check.big.bold= @report.grade.round
+      - else
+        %li.check Grade pending
+
+  .grid_9= render @report.answers

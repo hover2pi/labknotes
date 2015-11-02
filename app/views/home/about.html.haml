@@ -1,0 +1,23 @@
+- title "About"
+
+.grid_3.pads.yellow-bg.no-corners
+  %h5.page-title Acknowledgements   
+  .center.t-pads
+    = link_to image_tag("http://knotebooks.com/images/nsf.png"), "http://www.nsf.gov/"
+    .inline= link_to image_tag("http://knotebooks.com/images/rails.png", :style => "margin: 0 25px 15px 15px;"), "http://rubyonrails.org/"
+  .center.v-pads.double= link_to image_tag("http://knotebooks.com/images/creative_commons.png"), "http://creativecommons.org/"
+  .center.v-pads.double= link_to image_tag("http://knotebooks.com/images/famfamfam.png"), "http://www.famfamfam.com/"
+  .clear
+  
+.grid_9.v-pads
+  %h5.page-title About this application
+  .t-pads.double
+    %p
+      In September 2010, we began a two year project with 
+      = link_to "The Center for Accelerator Science and Education (CASE)", "http://www-case.physics.sunysb.edu/wiki/index.php/Main_Page"
+      at Stony Brook University. With generous support from the National Science Foundation (
+      = link_to "Award #0942777", "http://www.nsf.gov/awardsearch/showAward.do?AwardNumber=0942777&WT.z_pims_id=5741"
+      ) we'll be creating some really nifty tools to make the undergraduate physics lab experience just a little more fluid and a lot more awesome. 
+    %p Students will be able to conduct an experiment with a real life Tandem Van de Graaff accelerator, then pull in their data, plot their results, and craft and submit the most ninja lab report any professor's ever seen.
+    %p.right= link_to image_tag("http://knotebooks.com/images/case.png"), "http://www-case.physics.sunysb.edu/wiki/index.php/Main_Page"
+  .clear

@@ -1,0 +1,24 @@
+%li.tbody{ :class => cycle('odd', 'even')}
+  .kb-title.left
+    - if report.draft?
+      = link_to report.student.name, [:admin, @course, report.student]
+    - else
+      = link_to report.student.name, [:admin, @course, report.student, report]
+    .stats.small
+      - if report.draft?
+        .left.h-pads.submitted Not yet submitted
+        - if report.is_due?
+          .left.h-pads.late== #{distance_of_time_in_words(Time.now - report.knotebook.due_at).capitalize} overdue
+      - else
+        .left.h-pads.submitted== Submitted #{report.submitted_at.strftime("%A, %B %#d at %l:%M %P")}
+        - if report.submitted_at > report.knotebook.due_at
+          .left.h-pads.late== #{distance_of_time_in_words(report.submitted_at - report.knotebook.due_at).capitalize} late          
+      - unless Comment.for_report(report).count == 0
+        .left.h-pads.graded= pluralize(Comment.for_report(report).count, "comment")
+  - if report.graded?
+    .w50.right.center.bold= link_to report.grade.round, [:admin, @course, report.student, report]
+  - if report.draft?
+    .w50.right.center -
+  - if report.submitted? || report.late?
+    .w50.right.center.green= link_to "Grade", [:admin, @course, report.student, report]
+  .clear  

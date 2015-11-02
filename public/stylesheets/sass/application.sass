@@ -1,0 +1,172 @@
+@import constants.sass
+  
+html>body
+  font-size: 14px
+  color: $black
+  background: $highlight  
+  
+body, textarea
+  font-family: "Myriad Pro", Myriad, Arial, Helvetica, sans-serif
+  font-size: 62.5%
+  margin: 0
+  >div
+    width: 100%
+
+#control-bar-content, #header-content, #main-content, #footer-content
+  width: 960px
+  margin: 0 auto
+  padding: $padding 0
+
+#control_bar
+  background: $black
+  font-size: 14px
+  color: #ffffff
+  #control-bar-content
+    padding: 3px 0
+    .control-bar-link
+      width: 80%
+      float: left
+    a
+      color: #ffffff
+      font-weight: bold
+      padding: 0 $half_padding
+      &:hover
+        color: $grey_mid
+  
+#header  
+  background: -moz-linear-gradient(center top, $lightest, $highlight) repeat scroll 0 0 $highlight
+  background: -webkit-gradient(linear, left top, left bottom, from($lightest), to($highlight))
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$lightest', endColorstr='$highlight')
+  border-bottom: $thin
+  #header-content
+    ul
+      margin: 0
+      padding: 0
+      list-style: none
+      &.nav-items >li
+        float: left
+        margin: $half_padding 0 0 4*$padding
+        >a
+          padding: $half_padding $padding
+          color: $black
+          font-weight: bold
+          display: block
+          &:hover
+            text-decoration: none
+        &#logo
+          margin: 0
+          a, img
+            border: 0
+            padding: 0
+            height: 34px
+            width: 172px
+        ul.dropdown 
+          position: absolute
+          visibility: hidden
+          border: 3px solid white
+          >li
+            padding: 0
+            border-top: 3px solid white
+            background: #ffffff
+            margin: 0
+            &.even
+              background: $lightest
+            a
+              display: block
+              color: $blue_dark
+              padding: $padding
+            &:first-child
+              border-top: 0
+            &:hover a
+              background: $blue_dark
+              color: #fff
+              text-decoration: none
+        &:hover ul.dropdown
+          visibility: visible
+          z-index: 100
+    
+#main
+  background: #ffffff
+  padding: $padding 0 2*$padding 0
+
+#footer
+  background: $highlight
+  border-top: $thin
+  font-size: 14px
+  #footer-content
+    color: $grey-dark
+    text-align: right
+    a
+      margin: $half-padding
+
+#error_explanation
+  background-color: $red_light
+  border: 1px solid $black
+  padding: 2*$padding
+  margin-bottom: 2*$padding
+  h3
+    font-size: $h4
+    margin: 0
+  h2
+    margin: 0
+  ul
+    margin-bottom: 0
+  
+.formatting p
+  padding: $half_padding $padding
+  span
+    margin: 0 -$padding
+  
+.tooltip, .tooltip-left, .tooltip-top
+  display: none
+  border: 3px solid $black
+  font-size: 13px
+  padding: $padding*2 $padding*3
+  color: $black	
+  line-height: 22px
+  z-index: 10
+  background: -moz-linear-gradient(center top , $lightest, $highlight) repeat scroll 0 0 $highlight
+  background: -webkit-gradient(linear, left top, left bottom, from($lightest), to($highlight))
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$lightest', endColorstr='$highlight')
+  border-radius: $padding
+  -moz-border-radius: $padding
+  -webkit-border-radius: $padding
+  -moz-box-shadow: 4px 4px 10px $grey_dark
+  -webkit-box-shadow: 4px 4px 10px $grey_dark
+  box-shadow: 4px 4px 10px $grey_dark
+  width: 200px
+  .arrow, .arrow-right, .arrow-bottom
+    width: 0
+    height: 0
+    position: absolute
+  .arrow
+    left: -13px
+    border-top: 10px solid transparent
+    border-bottom: 10px solid transparent
+    border-right: 10px solid $black
+  .arrow-right
+    right: -13px
+    border-top: 10px solid transparent
+    border-bottom: 10px solid transparent
+    border-left: 10px solid $black
+  .arrow-bottom
+    bottom: -13px
+    left: 28px
+    border-right: 10px solid transparent
+    border-top: 10px solid $black
+    border-left: 10px solid transparent
+
+.wrapper
+  overflow: hidden
+  .knotes
+    clear: left
+    position: relative
+    &.scroller
+      width: 100000px
+      margin-left: 0
+      overflow: hidden
+    .knote
+      list-style-type: none
+      line-height: $h3
+      width: 712px
+      float: left

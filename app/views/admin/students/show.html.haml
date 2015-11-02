@@ -1,0 +1,68 @@
+- title @student.name
+
+.message
+  %h3.left.w200= @student.name
+  = form_tag [:admin, @course, :student], :method => :get do
+    = select_tag(:student_id, options_from_collection_for_select(@course.students, :id, :name, @student.id), :onchange => "this.form.submit();")
+  .clear
+
+- @student.courses.each do |course|
+  - reports = course.reports.for(@student)
+  .grid_3.yellow-bg.no-corners{ :style => "position: relative;"}
+    %h5.page-title== #{course.name} #{course.semester}
+    %ul
+      - unless reports.needs_grade.count == 0
+        %li.manual= pluralize(reports.needs_grade.count, "ungraded report")
+      - unless reports.overdue.count == 0
+        %li.clock= pluralize(reports.overdue.count, "overdue report")
+      %li.student== ID# #{@student.student_id}
+      %li.email= mail_to @student.email, "Email #{@student.name}"
+      %li.check.green= link_to 'Course gradebook', [:admin, course, :students]
+    - if reports.graded.count == 0
+      %h5.page-title GPA
+      .v-pads
+        %p Sorry, no grades yet!
+    - else
+      %h5.page-title== GPA: #{reports.graded.average(:grade).round(1)}
+      %ul.bar-chart.border.no-corners.h-pads
+        %li.gridlines
+          .y{ :style => "bottom:18px;"}
+          .y{ :style => "bottom:38px;"}
+          .y{ :style => "bottom:58px;"}
+          .y{ :style => "bottom:78px;"}
+        - reports.due_at_asc.each do |report|
+          - width = (196/reports.count)
+          - avg = report.knotebook.reports.graded.average(:grade)
+          %li.bar{ :class => report.state, :style => "width: #{width}px"}
+            %span.hover{ :style => "width: #{width-2}px;" }
+            - if report.graded?
+              %a.tip
+                %span.count{ :style => "width: #{width-2}px; height: #{report.grade}%" }
+              .tooltip
+                .arrow
+                %h5.page-title= report.title
+                %ul
+                  %li.check
+                    %span== #{@student.name}: 
+                    %span.bold= report.grade.round
+                  %li.chart
+                    %span Class Avg: 
+                    %span.bold= avg.round
+                  %li.star 
+                    %span Percentile: 
+                    %span.bold= 100*(report.knotebook.reports.graded.count - report.knotebook.reports.graded.where("grade > ?", report.grade).count)/(report.knotebook.reports.graded.count)
+            - else
+              %a{ :href => "", :title => "Status: #{report.state.capitalize}" }
+                %span.late{ :style => "width: #{width-2}px; height: 100%" }
+
+    .clear
+
+  .grid_9.table
+    %ul.list
+      %li.thead.greydient.border.no-top-corners.bold Lab Report
+      = render reports.due_at_desc
+      %li.tfoot.red.greydient.border.no-bottom-corners
+    .clear
+  
+  .clear
+  %br

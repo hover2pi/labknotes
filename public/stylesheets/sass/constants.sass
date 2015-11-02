@@ -1,0 +1,449 @@
+$lightest: #fafafa
+$highlight: #eeeeee
+$grey_light: #e1e1e1
+$grey_mid: #bbbbbb
+$grey_dark: #a0a0a0
+$grey_darker: #777777
+$green_light: #f0fcef
+$blue_lightest: #eff5fc
+$blue_light: #D2E4EF
+$blue_mid: #4DB8E0
+$blue_dark: #325c9a
+$black: #362f2d
+$yellow_light: #FFFACD
+$yellow_mid: #FDF7AF
+$yellow_dark: #fff59a
+$red_lightest: #fef1f2
+$red_light: #efcfcc
+$red_dark: #980905
+$harmony_light: #dde2eb
+$harmony_dark: #6f82a9
+
+$green_text: #047b0d
+$yellow_text: #f7cb0c
+$orange_text: #f79c0c
+$red_text: #980905
+
+$h1: 2.5em
+$h2: 2em
+$line_height: 1.5em
+$h3: 1.5em
+$h4: 1.25em
+$h5: 1em
+$h6: 0.9em
+
+$dark: solid 1px $grey_mid
+$thin: solid 1px $grey_light
+$padding: 8px
+$half-padding: 4px
+
+h1
+  font-size: $h1
+  margin: $h1/2 0 $h1 0
+h2
+  font-size: $h2
+  margin: $h2/4 0
+h3
+  font-size: $h3
+  margin: $half_padding $padding
+h4
+  font-size: $h4
+  margin: $half_padding $padding
+h5
+  font-size: $h5
+  margin: 0
+
+p, li
+  line-height: $line_height
+
+a, a:visited
+  color: $blue_dark
+  text-decoration: none
+  outline: none
+  &:hover
+    color: $black
+    text-decoration: underline
+    
+input[type="text"], input[type="password"], input.field
+  width: 30em
+  padding: $half_padding
+  font-size: $h5
+  &.fill
+    width: 96%
+
+input[type="checkbox"]
+  margin-right: $padding  
+
+textarea
+  width: 99%
+  height: 108px
+  padding: $half_padding
+  line-height: $line_height
+  font-size: $h5
+  border: 1px solid $grey_mid
+  resize: vertical
+  &.small
+    height: 54px
+    margin-top: $padding
+
+hr
+  border: none
+  background-color: $grey_light
+  height: 1px
+  width: 100%
+  text-align: center
+  margin-bottom: $padding*2
+
+sup
+  margin-right: -2px
+
+.button 
+  display: inline
+  a, input[type="submit"]
+    cursor: pointer
+    outline: none 0
+    -moz-outline-style: none 0
+    border-radius: 12px
+    -moz-border-radius: 12px
+    -webkit-border-radius: 12px
+    background: transparent url("/images/button.png") repeat-x top
+    color: #444
+    display: inline-block
+    font-size: 13px
+    border: 1px solid #aaaaaa
+    &:hover
+      border-color: $grey_darker
+      color: #333333
+      text-decoration: none
+    &:active
+      background-position: bottom 
+      border-color: $grey_darker
+    &:focus
+      border-color: $grey_darker
+      &::-moz-focus-inner
+        border-color: transparent $important
+  a
+    padding: $half_padding 13px $half_padding 13px
+    height: 14px
+    &:active
+      padding: 5px 13px 3px 13px
+  input[type=submit]
+    padding: 0 13px 3px 13px
+    height: 24px
+    &:active
+      padding: 0 13px 2px 13px
+  
+p
+  text-decoration: none
+  margin: 0 0 $padding 0
+  &:last-child
+    margin-bottom: 0
+  
+ul, ol
+  padding-left: 4*$padding
+  li
+    margin-bottom: $padding
+    vertical-align: top
+    &:last-child
+      margin-bottom: 0
+    span, img
+      vertical-align: text-bottom
+
+ol >li
+  list-style-type: decimal
+  >ul 
+    padding: 10px 20px 10px
+    li
+      list-style-type: disc
+
+li
+  &.manual
+    list-style-image: url(/images/manual.png)
+  &.cog
+    list-style-image: url(/images/cog.png)
+  &.knotebook
+    list-style-image: url(/images/knotebook.png)
+  &.check
+    list-style-image: url(/images/check.png)
+  &.chart
+    list-style-image: url(/images/chart.png)
+  &.student
+    list-style-image: url(/images/student.png)
+  &.clock
+    list-style-image: url(/images/clock.png)
+  &.add
+    list-style-image: url(/images/add.png)
+  &.add-knote
+    list-style-image: url(/images/add_knote.png)
+  &.add-course
+    list-style-image: url(/images/add_course.png)
+  &.edit
+    list-style-image: url(/images/edit.png)
+  &.star
+    list-style-image: url(/images/star.png)
+  &.last
+    list-style-image: url(/images/last.png)
+  &.next
+    list-style-image: url(/images/next.png)
+  &.first
+    list-style-image: url(/images/first.png)
+  &.previous
+    list-style-image: url(/images/previous.png)
+  &.date
+    list-style-image: url(/images/date.png)
+  &.email
+    list-style-image: url(/images/email.png)
+  &.folder
+    list-style-image: url(/images/folder.png)
+  &.search
+    list-style-image: url(/images/search.png)
+  &.comment
+    list-style-image: url(/images/comment.png)
+  &.return
+    list-style-image: url(/images/return.png)
+    input[type="submit"]
+      color: $blue_dark
+      text-decoration: none
+      outline: none
+      background: transparent
+      border: 0
+      padding: 0
+      margin-left: -3px
+      font-size: 12px
+      line-height: 21px
+      &:hover
+        color: $black
+        text-decoration: underline
+  &.even
+    background-color: $lightest
+  &.big
+    font-size: 2.5em
+    margin-bottom: $padding
+
+img, a img
+  border: 0
+         
+table
+  width: 100%
+  
+.h300
+  height: 300px  
+
+.h200
+  height: 200px
+
+.w30
+  width: 30px
+
+.w50
+  width: 50px
+
+.w100
+  width: 100px
+
+.w150
+  width: 150px
+
+.w200
+  width: 225px
+
+.w400
+  width: 400px
+    
+.blue, .blue a
+  color: $blue_dark
+
+.red, .red a
+  color: $red_dark
+
+.grey, .grey a
+  color: $grey_darker
+
+.green, .green a
+  color: $green_text
+
+.blue a:hover, .red a:hover, .grey a:hover, .green a:hover
+  color: $black
+  border-color: $black
+
+.white
+  background: #ffffff
+
+.yellow-bg
+  background: $yellow_mid
+  background: -moz-linear-gradient(center top , $yellow_mid, $yellow_dark) repeat scroll 0 0 $yellow_mid
+  background: -webkit-gradient(linear, left top, left bottom, from($yellow_mid), to($yellow_dark))
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$yellow_mid', endColorstr='$yellow_dark')
+  border: 1px solid #F1E997
+  
+.grey-bg
+  background: $lightest
+  border: $thin
+
+.greydient
+  background: -moz-linear-gradient(center top , $lightest, $highlight) repeat scroll 0 0 $highlight
+  background: -webkit-gradient(linear, left top, left bottom, from($lightest), to($highlight))
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$lightest', endColorstr='$highlight')
+  
+.blue-bg
+  background: $blue_light
+
+.red-bg
+  background: $red_light
+
+.green-bg
+  background: $green_light
+
+.left
+  float: left
+
+.right
+  float: right
+
+.inline
+  display: inline
+
+.center
+  text-align: center
+
+.no-corners
+  border-radius: $padding
+  -moz-border-radius: $padding
+  -webkit-border-radius: $padding
+
+.no-bottom-corners
+  border-radius: 0 0 $padding $padding
+  -moz-border-radius: 0 0 $padding $padding
+  -webkit-border-radius: 0 0 $padding $padding
+
+.no-top-corners
+  border-radius: $padding $padding 0 0
+  -moz-border-radius: $padding $padding 0 0
+  -webkit-border-radius: $padding $padding 0 0
+
+.no-left-corners a, .no-left-corners
+  border-radius: $padding 0 0 $padding
+  -moz-border-radius: $padding 0 0 $padding
+  -webkit-border-radius: $padding 0 0 $padding
+
+.no-right-corners a, .no-right-corners
+  border-radius: 0 $padding $padding 0
+  -moz-border-radius: 0 $padding $padding 0
+  -webkit-border-radius: 0 $padding $padding 0
+
+.shadow
+  -moz-box-shadow: 4px 4px 10px $grey_dark
+  -webkit-box-shadow: 4px 4px 10px $grey_dark
+  box-shadow: 4px 4px 10px $grey_dark
+  
+.border
+  border: $thin
+
+.bold
+  font-weight: bold
+
+.no-bold
+  font-weight: normal
+
+.no-wrap
+  white-space: nowrap
+  
+.underline
+  text-decoration: underline
+
+.small
+  font-size: $h6
+
+code
+  font-family: monospace
+  background-color: $lightest
+  border: 1px solid $grey_light
+  padding: 2px 4px
+  margin: 0 $half_padding
+
+.container_12
+  width: 960px
+
+.grid_3
+  width: 214px
+  float: left
+  margin: 0 $padding 0 0
+  padding: $padding
+  >.pads
+    line-height: $line_height
+  &.right
+    margin: 0 0 0 $padding
+    float: right
+  p
+    padding: 0 $padding $padding $padding
+  select
+    margin-bottom: 5px
+  li img
+    margin-left: 5px
+
+.grid_9
+  width: 712px
+  float: right
+  margin: 0 0 0 $padding
+  &.left
+    margin: 0 $padding 0 0
+    float: left
+  &.pads, &.h-pads
+    width: 696px
+  &.v-pads
+    border-top: 1px solid transparent
+  p
+    padding: 0 $padding $padding $padding
+    &.yellow-bg
+      padding: $padding
+
+.grid_12.table ul.sub-list li
+  min-width: 50px
+
+.no-pads
+  padding: 0
+
+.no-bottom-pads
+  margin-bottom: 0
+
+.pads
+  padding: $padding
+  &.half
+    padding: $half_padding
+  &.double
+    padding: 2*$padding
+
+.t-pads
+  padding: $padding 0 0 0
+  &.half
+    padding: $half_padding 0 0 0
+  &.double
+    padding: 2*$padding 0 0 0
+    
+.l-pads
+  padding: 0 0 0 $padding
+  &.half
+    padding:  0 0 0 $half_padding
+  &.double
+    padding:  0 0 0 $padding*2
+  &.quadruple
+    padding:  0 0 0 $padding*4
+
+.v-pads
+  padding: $padding 0
+  &.half
+    padding: $half_padding 0
+  &.double
+    padding: 2*$padding 0
+
+.h-pads
+  padding: 0 $padding
+  &.half
+    padding: 0 $half_padding
+  &.double
+    padding: 0 2*$padding
+
+.clear
+  width: 100%
+  display: block
+  clear: both

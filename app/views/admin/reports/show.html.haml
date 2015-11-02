@@ -1,0 +1,31 @@
+- title "Report for #{@report.knotebook.title}"
+
+.message
+  %h3= @report.knotebook.title
+  .clear
+
+= render "admin/shared/navigation/report"
+
+.grid_3.yellow-bg.no-corners
+  %h5.page-title Report Index
+  %ol
+    - @report.knotebook.questions.each do |question|
+      %li= link_to question.title, "##{question.id}"
+  %h5.page-title Report Details
+  %ul
+    %li.student= link_to @report.student.name, [:admin, @course, @student]
+    %li.date
+      == Submitted #{@report.submitted_at.strftime("%A, %B %#d at %l:%M %P")}
+      / - if @report.late? || @report.submitted_at > @report.knotebook.due_at
+      /   .grey.small== #{distance_of_time_in_words(@report.submitted_at - @report.knotebook.due_at).capitalize} late
+    %li.comment= pluralize(Comment.for_report(@report).count, "comment")
+    - if @report.graded?
+      %li.check.big.bold= @report.grade.round
+      %li.edit.red= link_to "Edit this grade", [:edit, :admin, @course, @student, @report]
+    - else
+      %li.return
+        = form_for [:return, :admin, @course, @student, @report] do |f|
+          = f.submit "Return for editing", :confirm => "Are you sure?"
+      %li.edit.red= link_to "Grade now", [:edit, :admin, @course, @student, @report]
+    
+.grid_9= render @report.answers

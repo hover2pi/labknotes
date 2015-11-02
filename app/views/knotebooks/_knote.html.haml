@@ -1,0 +1,10 @@
+.knote{ :"data-id" => knote.id, :id => "knote_#{index}_#{knote.id}", :"data-title" => knote.title }
+  .knote-header
+    .knote-title.blue.bold= knote.title
+    .knote-nav.greydient.small
+      .left= link_to "Collapse", "javascript:void(0)", :class => "collapse", :onClick => "this.innerHTML = (this.innerHTML == 'Collapse' ? 'Expand' : 'Collapse');", :title => "Collapse/expand content"
+      .right= link_to "See alternate description", "#", :class => "red", :"data-id" => next_knote.id
+      .clear
+  .knote-content
+    - knote.content.split("\n").each do |p|
+      %p= p

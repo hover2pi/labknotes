@@ -1,0 +1,9 @@
+.kb-nav.border.greydient.no-corners
+  %ul
+    %li.left.no-link.no-left-corners= "View your Lab Report"
+    %li.left= link_to "View the Lab Manual", [@course, @knotebook, @report.knotebook]
+    - if @report.draft?
+      = form_for [@course, current_user, @report] do |f|
+        %li.green.no-right-corners.right= f.submit "Submit report for grading", :confirm => "Are you sure you want to submit for grading?", :class => "no-right-corners border green"
+        / # TODO: Make this confirm work!
+  .clear

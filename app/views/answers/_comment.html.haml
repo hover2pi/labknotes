@@ -1,0 +1,8 @@
+%li.border.greydient
+  &nbsp;
+  .comment-container
+    .comment-body.t-pads
+      - comment.body.split("\n").each do |p|
+        %p= p
+    .clear
+  .clear

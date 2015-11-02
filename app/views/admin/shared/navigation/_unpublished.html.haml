@@ -1,0 +1,11 @@
+.kb-nav.border.greydient.no-corners
+  %ul
+    %li.left.no-left-corners= no_current_link "Experiment Details", [:edit, :admin, @course, @knotebook]
+    %li.left= no_current_link "Edit Lab Manual (#{@knotebook.knotes.count})", [:admin, @course, @knotebook, :knotes]
+    %li.left= no_current_link "Edit Report Outline (#{@knotebook.questions.count})", [:admin, @course, @knotebook, :questions]  
+    - if @knotebook.knotes.count == 0 || @knotebook.questions.count == 0 || @knotebook.due_at.blank?
+      %li.no-right-corners.right.no-link Publish
+    - else
+      %li.no-right-corners.right.green= link_to "Publish", [:publish, :admin, @course, @knotebook], :method => :put, :confirm => "Are you sure you want to publish this experiment?"
+    %li.right= no_current_link "Preview", [:admin, @course, @knotebook]
+  .clear

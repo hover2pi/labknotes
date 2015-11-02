@@ -1,0 +1,29 @@
+- title @student.name
+
+.message
+  %h3.left.grid_3= @student.name
+  %p.right= link_to '« Back to Dashboard', :root
+  .clear
+  
+.grid_3.yellow-bg.pads.no-corners
+  %h5.page-title== #{@course.name} #{@course.semester}
+  %ul 
+    %li.manual 1 ungraded lab
+    %li.clock 1 late lab
+    %li.check GPA: 27/30
+    %li.email= mail_to @student.email, "Email #{@student.name}"
+
+.grid_9.pads
+  %table
+    %thead
+      %tr
+        %th Title
+        %th Status
+        %th Grade
+    %tbody
+      - @student.reports.each do |report|
+        %tr{ :class => cycle('odd', 'even')}
+          %td= link_to report.knotebook.title, [@course, @student, report]
+          %td.red= report.state
+          %td= report.grade
+.clear

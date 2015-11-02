@@ -1,0 +1,25 @@
+.grid_12.h-pads
+  - @answer.content.split("\n").each do |p|
+    %p= p
+
+.t-pads.double
+  .grid_12.pads
+    = form_for [:admin, @course, @student, @report, @answer, @comment] do |f|
+      -if @comment.errors.any?
+        #error_explanation
+          %h3= "#{pluralize(@comment.errors.count, "error")} prohibited this answer from being saved:"
+          %ul
+            - @comment.errors.full_messages.each do |msg|
+              %li= msg
+      .v-pads
+        %h5= f.label :body, "Comment"
+        = f.text_area :body
+      
+      .v-pads= render 'shared/formatting'
+      
+      .v-pads
+        .button= f.submit 'Save'
+        %span.h-pads= link_to "Cancel", :back
+        - unless @comment.new_record?
+          \|
+          %span.red.h-pads= link_to "Delete this comment", [:admin, @course, @student, @report, @answer, @comment], :title => "Delete this comment", :confirm => 'Are you sure?', :method => :delete

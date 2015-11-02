@@ -1,0 +1,32 @@
+- title "Experiments for #{@course.name} #{@course.semester}"
+
+.message
+  %h3== Experiments for #{@course.name} #{@course.semester}
+  .clear
+
+.grid_12.table
+  %ul.list
+    %li.thead.greydient.border.no-top-corners.bold
+      Experiment
+      %ul.sub-list
+        %li.w150 Course
+        %li.w50 Show
+        %li.w50 Edit
+        %li.w50 Destroy
+      .clear
+    - if @course.knotebooks.count == 0
+      %li.tbody
+        %p.yellow-bg.pads.no-corners There are no experiments for this course yet! Click the link below to add some.
+    - else
+      - @knotebooks.each do |knotebook|
+        %li.tbody{ :class => cycle('odd', 'even')}
+          .left= knotebook.title
+          %ul.sub-list
+            %li.w150== #{@course.name} #{@course.semester}
+            %li.w50=link_to 'Show', [:admin, @course, knotebook]
+            %li.w50= link_to 'Edit', [:edit, :admin, @course,knotebook]
+            %li.w50.red= link_to 'Destroy', [:admin, @course, knotebook], :method => :delete, :confirm => 'Are you sure?'
+            - # TODO: Make this delete work!
+          .clear
+    %li.tfoot.red.greydient.border.no-bottom-corners= link_to '+ Add new experiment', [:new, :admin, @course, :knotebook]
+

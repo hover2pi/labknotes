@@ -1,0 +1,27 @@
+.grid_3.yellow-bg.no-corners
+  %h5.page-title Report Outline
+  %ol
+    - @knotebook.questions.each do |question|
+      - unless question.new_record?
+        %li
+          = link_to "Edit " + question.title, [:edit, :admin, @course, @knotebook, question]
+          - if question.spreadsheet?
+            = image_tag("/images/data.png")
+  - unless @knotebook.published? && @knotebook.reports.needs_grade.count > 0
+    .button= link_to "Click to add a question", [:new, :admin, @course, @knotebook, :question]
+    .clear
+    %br
+  = form_for [:admin, @course, @knotebook] do |f|
+    %h5.page-title
+      - if @knotebook.due_at.blank?
+        .red Report due date not set!
+      - else
+        Report due date
+    .pads= f.datetime_select :due_at
+    .button= f.submit "Set report due date"
+    - if @knotebook.errors.any?
+      #error_explanation
+        %h3= "#{pluralize(@knotebook.errors.count, "error")} prohibited this report outline from being saved:"
+        %ul
+          - @knotebook.errors.full_messages.each do |msg|
+            %li= msg

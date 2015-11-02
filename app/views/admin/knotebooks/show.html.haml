@@ -1,0 +1,31 @@
+- title "#{@knotebook.title}"
+  
+.message
+  %h3= @knotebook.title
+  .clear
+
+= render "admin/shared/navigation/#{@knotebook.state}"
+  
+.grid_3.yellow-bg.no-corners
+  %h5.page-title Index
+  .pads= @knotebook.abstract
+  %ol
+    - @knotebook.knotes.grouped.map(&:first).each do |knote|
+      %li= link_to knote.title, { :anchor => knote.id }, { :id => "knote_link_#{knote.id}" }
+
+- if @knotebook.knotes.count == 0
+  .grid_9.pads
+    %p You have a title and abstract but you haven't put anything in the lab manual yet!
+    %p
+      Click the
+      %strong Edit Lab Manual
+      button in the navigation bar above to start adding sections.
+- else
+  .grid_9.wrapper
+    - @knotebook.knotes.grouped.each_with_index do |knote_group, index|
+      .knotes{ :"data-position" => index, :"data-original" => knote_group.first.id }
+        - knote_group.each_with_index do |knote, pos|
+          - next_knote = knote_group[pos + 1] || knote_group.first
+          = render :partial => 'knotebooks/knote', :object => knote, :locals => { :index => index, :next_knote => next_knote, :indent => pos > 0 }
+
+.clear

@@ -1,0 +1,62 @@
+- title "Edit Account"
+
+.message
+  %h3.left== Edit #{resource_name.to_s.humanize}
+  .clear
+
+.grid_3.yellow-bg.no-corners
+  %h5.page-title Course enrollments
+  - unless current_user.courses
+    %p.pads.red You are currently not enrolled in any courses. Please select the course and lab section you would like to be enrolled in.
+  .pads
+    = form_for current_user, :url => {:controller => "devise/registrations", :action => :update } do |f|
+      = f.select(:course_ids, options_from_collection_for_select(Course.all(:select => [:name, :id]), :id, :name, current_user.course_ids), :multiple => true)
+      .t-pads= f.submit "Update Enrollments"    
+
+.grid_9.h-pads
+  = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
+    = devise_error_messages!
+    .v-pads
+      %h5= f.label :first, "First Name"
+      = f.text_field :first, :class => "tip"
+      .tooltip What do you call yourself?
+      
+    .v-pads
+      %h5= f.label :last, "Last Name"
+      = f.text_field :last, :class => "tip"
+      .tooltip This one's easy!
+      
+    .v-pads
+      %h5= f.label :email
+      = f.text_field :email, :class => "tip"
+      .tooltip Don't worry, this will be kept private!
+    
+    .v-pads
+      %h5= f.label :student_id, "Student ID"
+      = f.text_field :student_id, :class => "tip"
+      .tooltip This must be your nine digit Stony Brook University student ID.
+      
+    .v-pads
+      %h5= f.label :password, "New password"
+      = f.password_field :password, :class => "tip"
+      .tooltip Leave this blank if you don't want to change your password.
+      
+    .v-pads
+      %h5= f.label :password_confirmation, "New password confirmation"
+      = f.password_field :password_confirmation, :class => "tip"
+      .tooltip Leave this blank if you don't want to change your password.
+      
+    .v-pads
+      %h5= f.label :current_password
+      = f.password_field :current_password, :class => "tip"
+      .tooltip Enter your current password to confirm your changes.
+      
+    .v-pads
+      .button= f.submit "Update my account"
+    .pads= link_to "Cancel", :back
+
+.clear
+%hr
+.pads
+  Unhappy? 
+  %span.red= link_to "Delete my account!", registration_path(resource_name), :confirm => "Are you sure?", :method => :destroy

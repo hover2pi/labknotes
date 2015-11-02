@@ -1,0 +1,57 @@
+.formatting.grey-bg.pads
+  .h-pads= link_to "Show formatting options", "javascript:void(0)", :class => "collapse", :onClick => "this.innerHTML = (this.innerHTML == 'Show formatting options' ? 'Hide formatting options' : 'Show formatting options');"
+  .markup.t-pads
+    %hr
+    %p
+      To include links, use
+      %code
+        [
+        %span.grey LINK_TEXT
+        ](
+        %span.grey LINK_URL
+        )
+    %p
+      To include images, use
+      %code 
+        ![
+        %span.grey IMG_ALT_TEXT
+        ](
+        %span.grey IMG_URL&nbsp;
+        "
+        %span.grey IMG_TITLE
+        ")
+    %p= link_to "Click here for more Markdown syntax.", "http://daringfireball.net/projects/markdown/syntax", :target => "_blank"
+    %hr
+    %p If you're more comfortable, you can just use HTML to insert:
+    %p
+      Links:
+      %code
+        &lt;a href="
+        %span.grey LINK_URL
+        "&gt;
+        %span.grey LINK_TEXT
+        &lt;/a&gt;
+    %p
+      Images:
+      %code
+        &lt;img src="
+        %span.grey IMG_URL
+        " title="
+        %span.grey IMG_TITLE
+        "/&gt;
+    %p Video: Just grab the embed code from your video host and paste it into your content!
+    %hr
+    %p
+      To generate equations, enclose LaTeX code in 
+      %code \[ 
+      and
+      %code \]
+    %p  
+      For example, Newton's second law becomes 
+      %code
+        \\[
+        %span.grey \vec F = m \vec a
+        \\]
+    %p
+      Not familiar with LaTeX? It's easy!
+      = link_to "Click here for a LaTeX tutorial.", "http://knotebooks.com/knotebooks/6", :target => "_blank"

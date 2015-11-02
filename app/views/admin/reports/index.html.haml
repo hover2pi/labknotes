@@ -1,0 +1,45 @@
+- title "Reports for #{@knotebook.title}"
+
+.message
+  %h3== Reports for #{@knotebook.title}
+  .clear
+
+= render "admin/shared/navigation/#{@knotebook.state}"
+
+= render "admin/reports/distribution"
+
+.grid_3.yellow-bg.no-corners.pads
+  %h5.page-title Reports
+  %ul
+    - if @knotebook.due_at < Time.now
+      %li.date== Collected #{@knotebook.due_at.strftime("%A, %B %#d")}
+    - else
+      %li.date== Due #{@knotebook.due_at.strftime("%A, %B %#d")}
+    %li.clock== #{@knotebook.reports.without_state(:draft || :overdue).count}/#{@knotebook.reports.count} submitted
+    %li.check== #{@knotebook.reports.graded.count} graded
+
+.grid_9.table
+  %ul.list
+    %li.thead.greydient.border.no-top-corners.bold
+      .bold.left Student
+      / %ul.sub-list.tabs.no-bold
+      /   %li.no-top-corners.border= link_to "Submitted"
+      /   %li.no-top-corners.border= link_to "Graded"
+      /   - if @knotebook.due_at < Time.now
+      /     %li.no-top-corners.border= link_to "Overdue"
+      /   - else
+      /     %li.no-top-corners.border= link_to "Not submitted"
+      /   %li.no-top-corners.border.current= link_to "All"
+      .clear
+    - if @course.students.count == 0
+      %li.tbody
+        %p.yellow-bg.pads.no-corners There are no students enrolled in this course yet! Once your students enroll, they will appear in this list.
+    - if !@knotebook.published?
+      %li.tbody
+        %p.yellow-bg.pads.no-corners This experiment has not been published yet, therefore you couldn't possibly have any reports to grade!
+    - else  
+      = render :partial => 'admin/reports/student', :collection => @knotebook.reports, :as => :report
+    %li.tfoot.red.greydient.border.no-bottom-corners
+  .clear
+  %br
+.clear

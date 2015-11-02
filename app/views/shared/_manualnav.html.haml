@@ -1,0 +1,7 @@
+.kb-nav.border.greydient.no-corners
+  %ul
+    %li.left.no-left-corners= link_to "View your Lab Report", [@knotebook.course, current_user, current_user.report_for(@knotebook)]
+    %li.left.no-link= "View the Lab Manual"
+    - unless current_user.report_for(@knotebook).needs_grade? || current_user.report_for(@knotebook).graded?
+      %li.green.no-right-corners.right= link_to "Finalize report for grading", [@knotebook.course, current_user, current_user.report_for(@knotebook)]
+  .clear

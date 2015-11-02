@@ -1,0 +1,11 @@
+#control_bar
+  #control-bar-content
+    .control-bar-link
+      » Current Project: 
+      = link_to 'Center for Accelerator Science and Education', "http://www-case.physics.sunysb.edu/wiki/index.php/Main_Page", :target => '_blank'
+    - unless !user_signed_in?
+      .right
+        = link_to "My Account", registration_path(:edit, current_user)
+        \|
+        = link_to 'Logout', '/users/sign_out'
+    .clear

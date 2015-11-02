@@ -1,0 +1,21 @@
+.awesome{ :id => answer.question.id }
+  .border
+    .greydient.pads
+      %h4.left== #{answer.question.title}
+      - if answer.question.spreadsheet?
+        .button.left.l-pads= link_to "View in full screen", answer.content, :target=> "_blank"
+      - if @report.graded?
+        - # TODO: Show points for this answer
+        .right.small.points Points: 15
+      .clear
+    .white.pads
+      - if answer.question.spreadsheet?
+        %iframe{ :width => "680", :height=> "300", :class=> "white pads", :src =>  spreadsheet_for(answer), :frameborder => "0"}
+      - else
+        - answer.content.split("\n").each do |p|
+          %p= p
+  - if @report.graded?
+    - unless answer.comments.blank?
+      %ol.no-pads
+        = render :partial => 'answers/comment', :collection => answer.comments
+  .clear

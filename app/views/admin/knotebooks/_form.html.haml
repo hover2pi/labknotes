@@ -1,0 +1,24 @@
+= form_for [:admin, @course, @knotebook] do |f|
+  - if @knotebook.errors.any?
+    #error_explanation
+      %h3= "#{pluralize(@knotebook.errors.count, "error")} prohibited this knotebook from being saved:"
+      %ul
+        - @knotebook.errors.full_messages.each do |msg|
+          %li= msg
+  .v-pads
+    %h5= f.label :title, "Experiment title"
+    = f.text_field :title
+    .grey.small.pads.half 
+      E.g. — 
+      %sup 11
+      B (p,n) 
+      %sup 11
+      C, Millikan Oil Drop Experiment, etc.
+  .v-pads
+    %h5= f.label :abstract
+    = f.text_area :abstract
+    .grey.small.pads.half Here you can provide a short description of the lab experiment to be performed. You can add the actual lab manual content in the next section.
+  .v-pads= render 'shared/formatting'
+        
+  .v-pads
+    .button= f.submit 'Save'

@@ -1,0 +1,26 @@
+%li.tbody{ :class => cycle('odd', 'even')}
+  .kb-title.left.l-pads.quadruple
+    = link_to knotebook.title, [:admin, course, knotebook]
+    - if knotebook.published?
+      .stats.small
+        - if knotebook.reports.needs_grade.count > 0
+          .left.h-pads.submitted.bold.underline= link_to "#{knotebook.reports.without_state(:draft || :overdue).count}/#{knotebook.reports.count} submitted", [:admin, course, knotebook, :reports]
+        - else
+          .left.h-pads.submitted= link_to "#{knotebook.reports.without_state(:draft || :overdue).count}/#{knotebook.reports.count} submitted", [:admin, course, knotebook, :reports]
+        .left.h-pads.graded== #{knotebook.reports.graded.count} graded
+        - unless knotebook.reports.overdue.count == 0
+          .left.h-pads.late== #{knotebook.reports.overdue.count} overdue
+        .clear
+  - if knotebook.published?
+    - if knotebook.due_at > Time.now
+      .w100.right.red.center
+        .small== Due #{knotebook.due_at.strftime("%A,")}
+        .small= knotebook.due_at.strftime("%B %#d")
+    - else
+      .w100.right.center.grey
+        .small Collected
+        .small= knotebook.due_at.strftime("%D")
+  - else
+    .w100.right.center
+      .small Unpublished
+  .clear

@@ -1,0 +1,46 @@
+.grid_9.h-pads
+  = form_for [:admin, @course, @knotebook, @question] do |f|
+    -if @question.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@question.errors.count, "error")} prohibited this question from being saved:"
+        %ul
+          - @question.errors.full_messages.each do |msg|
+            %li= msg
+
+    .v-pads
+      %h5= f.label :title
+      = f.text_field :title
+      .grey.small.pads.half E.g. — Introduction, Procedure, etc.
+    .v-pads
+      %h5= f.label :explanation, "Details"
+      = f.text_area :explanation
+      .grey.small.pads.half Enter any specific questions, instructions, explanations, etc. that you would like the students to see
+    .v-pads
+      %h5.left= f.label :spreadsheet, "Spreadsheet:"
+      = f.check_box :spreadsheet, :style => "margin:0 0 3px 7px;"
+      .clear
+      .grey.small.pads.half Check this box to require a spreadsheet of data instead of text as an answer
+    .v-pads= render 'shared/formatting'
+    .v-pads
+      .button= f.submit 'Save'
+      
+/ .grid_9.h-pads
+/   = form_for [:admin, @course, @knotebook, @question] do |f|
+/     -if @question.errors.any?
+/       #error_explanation
+/         %h2= "#{pluralize(@question.errors.count, "error")} prohibited this question from being saved:"
+/         %ul
+/           - @question.errors.full_messages.each do |msg|
+/             %li= msg
+/ 
+/     .v-pads
+/       %h5= f.label :title
+/       = f.text_field :title
+/       .grey.small.pads.half E.g. — Introduction, Procedure, etc.
+/     .v-pads
+/       %h5= f.label :explanation, "Details"
+/       = f.text_area :explanation
+/       .grey.small.pads.half Enter any specific questions, instructions, explanations, etc. that you would like the students to see
+/     .v-pads= render 'shared/formatting'
+/     .v-pads
+/       .button= f.submit 'Save'

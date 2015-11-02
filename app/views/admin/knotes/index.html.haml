@@ -1,0 +1,19 @@
+- title "Lab Manual for #{@knotebook.title}"
+
+.message
+  %h3= @knotebook.title
+  .clear
+
+= render "admin/shared/navigation/#{@knotebook.state}"
+= render "sidebar"
+
+- if @knotebook.knotes.count == 0
+  .grid_9.v-pads
+    %p
+      The
+      %strong Lab Manual
+      provides the background and instructions for the experiment to be carried out by the students. 
+    %p For example, a typical lab manual might have an introduction to the concepts, goals of the lab, operating procedures for the apparatus, and step by step instructions for carrying out the experiment.
+    %p Click the button to the left to start adding sections to this lab manual!
+- else    
+  .grid_9= render @knotes

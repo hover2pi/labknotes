@@ -1,0 +1,36 @@
+.grid_12.no-corners.border.histogram
+  #score-count.left
+    .center.small 8
+    .center.small 6
+    .center.small 4
+    .center.small 2
+  / .x{ :style => "left:253px;"}
+  /   .small.center 25
+  / .x{ :style => "left:478px;"}
+  /   .small.center 50
+  / .x{ :style => "left:703px;"}
+  /   .small.center 75
+  .y{ :style => "bottom:19px;"}
+  .y{ :style => "bottom:39px;"}
+  .y{ :style => "bottom:59px;"}
+  .y{ :style => "bottom:79px;"}
+  %ul.distribution.no-pads
+    - if @knotebook.reports.graded.count == 0
+      .no-grades.center Grade some reports below to generate a histogram
+    - else
+      - @knotebook.reports.graded.each do |report|
+        - count = @knotebook.reports.find(:all, :conditions => [ "grade = ?", report.grade ] ).count
+        - score = report.grade.round
+        - position = (score*9)
+        %li.bar{ :style => "left: #{position}px;", :title => "#{score} (#{count})" }
+          %a
+            %span.count{ :style => "height: #{count}0px;" }
+.clear
+
+.letter-grades.v-pads.double
+  #slider1.slider
+  #slider2.slider
+  #slider3.slider
+  .small.info Drag sliders to set letter grade ranges
+  .clear
+

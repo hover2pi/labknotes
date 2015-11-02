@@ -1,0 +1,32 @@
+- title "#{@course.name} #{@course.semester} Gradebook"
+
+.message
+  %h3.left== Gradebook for #{@course.name} #{@course.semester}
+  %p.left== You have #{pluralize(@course.reports.needs_grade.count, "lab report")} to grade
+  .clear
+
+- width = (150 + (@course.knotebooks.count * 66))
+.grid_12.table{ :style => "width:#{width unless width < 934}px"}
+  %ul.list
+    %li.thead.bold.greydient.border.no-top-corners
+      Student
+      %ul.sub-list
+        - @course.knotebooks.each do |kb|
+          %li= link_to "Lab #{kb.position}", [:admin, @course, kb, :reports], :class => "tip-left"
+          .tooltip-left.no-bold= kb.title
+      .clear
+    - if @course.students.count == 0
+      %li.tbody
+        %p.yellow-bg.pads.no-corners There are no students enrolled in this course yet! Once your students enroll, they will appear in this list.
+    - else  
+      = render :partial => 'student', :collection => @course.students
+    %li.tfoot.greydient.border.no-bottom-corners.bold
+      - unless @course.students.count < 20
+        .w150.left Student
+        %ul.sub-list
+          - @course.knotebooks.each do |kb|
+            %li= link_to "Lab #{kb.position}", [:admin, @course, kb, :reports], :class => "tip-left"
+            .tooltip-left.no-bold= kb.title
+
+.t-pads.double
+  .button= link_to "Export gradebook", [:export, :admin, @course]
